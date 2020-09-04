@@ -26,6 +26,9 @@ async function listDevices() {
     return deviceArray;
 }
 
+/**
+ * 检查是否有adb环境
+ */
 async function chcekAdbEnv() {
     const { error, stdout, stderr } = await execPromisefy('adb version');
     if (error) {
@@ -41,7 +44,7 @@ async function chcekAdbEnv() {
 
 /**
  * 安装apk到指定设备
- * 超时时间默认30s
+ * 超时时间默认50s
  * @param {*} deviceId 
  * @param {*} apkPath 
  */
@@ -64,7 +67,7 @@ function installApk(deviceId, apkPath) {
         }
     })
     const timeoutPromise = new Promise((resolve, reject) => {
-        setTimeout(() => { reject('timeout') }, 30000)
+        setTimeout(() => { reject('timeout') }, 50000)
     })
     return Promise.race([installPromise, timeoutPromise]);
 }

@@ -1,0 +1,18 @@
+{
+  "name": "apk-installer",
+  "version": "1.0.3",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build:win32": "electron-builder --config build.config.js --win"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^10.0.0",
+    "electron-builder": "^22.8.0"
+  }
+}

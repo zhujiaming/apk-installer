@@ -10,4 +10,4 @@
 
 #### 安装包下载
 
-for windows: [apk-installer.exe](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.0.5/Apk.Installer.Setup.1.0.5.exe)
+windows: [apk-installer.exe](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.0.5/Apk.Installer.Setup.1.0.5.exe)

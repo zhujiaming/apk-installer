@@ -6,7 +6,7 @@
 
 安装完成后将该应用设置为Apk默认打开方式
 
-![效果图](./resource/page.jpg)
+![效果图](./snapshot/page.jpg)
 
 #### 安装包下载
 

@@ -1,6 +1,7 @@
 const config = {
   appId: "com.zhujm.apk-installer",
   productName: "Apk Installer",
+  compression: "maximum",
   fileAssociations: {
     ext: ".apk",
     name: "Apk安装",
@@ -9,6 +10,10 @@ const config = {
   directories: {
     output: "./packages",
     // buildResources: "build",
+  },
+  extraResources:  { // 拷贝静态文件到指定位置
+    "from": "./resource/adb",
+    "to": "adb"
   },
   dmg: {
     icon:"./resource/icon.icns",
@@ -86,7 +91,9 @@ const config = {
     "!target/",
     "!jsconfig.json",
     "!.npmrc",
-    "!.prettierrc.js"
+    "!.prettierrc.js",
+    "!README.md",
+    "!**/snapshot"
   ],  
 };
 

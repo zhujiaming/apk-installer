@@ -5,7 +5,8 @@ const config = {
   fileAssociations: {
     ext: ".apk",
     name: "Apk安装",
-    role: "Viewer"
+    role: "Viewer",
+    icon: "./resource/icon.icns"
   },
   directories: {
     output: "./packages",

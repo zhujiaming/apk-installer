@@ -3,20 +3,36 @@ const config = {
   productName: "Apk Installer",
   fileAssociations: {
     ext: ".apk",
-    name: "Apk安装"
+    name: "Apk安装",
+    role: "Viewer"
   },
   directories: {
     output: "./packages",
     // buildResources: "build",
   },
   dmg: {
+    icon:"./resource/icon.icns",
     backgroundColor: "#ffffff",
     window: {
       x: 100,
       y: 100,
-      width: 500,
-      height: 300,
+      width: 400,
+      height: 200,
     },
+    contents: [
+      {
+        x: 100,
+        y: 100,
+        type: "file"
+      },
+      {
+        x: 250,
+        y: 100,
+        type: "link",
+        path: "/Applications"
+      }
+    ],
+    sign : false
   },
   // win mac linux icon 默认抓取build/icons/下的png图，png命名256*256.png格式 https://www.electron.build/icons.html#linux
   nsis: {
@@ -30,8 +46,8 @@ const config = {
     allowElevation: true,
   },
   mac: {
-    // icon: "./build/icons/icon.icns",
-    target: ["dmg", "zip"],
+    icon: "./resource/icon.icns",
+    target: ["dmg"],
   },
   win: {
     icon: "./resource/icon.ico",
@@ -71,7 +87,7 @@ const config = {
     "!jsconfig.json",
     "!.npmrc",
     "!.prettierrc.js"
-  ],
+  ],  
 };
 
 module.exports = config;

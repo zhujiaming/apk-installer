@@ -3,6 +3,7 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 var isWinReady = false;
 var initOpenFileQueue = [];
 var title = "Apk安装器 v" + app.getVersion()
+
 function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow({
@@ -15,36 +16,21 @@ function createWindow() {
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
-      nodeIntegrationInWorker: true,
+      nodeIntegrationInWorker: true
     }
   })
 
   // 并且为你的应用加载index.html
   win.loadFile('index.html')
 
-  // 打开开发者工具
-  // win.webContents.openDevTools({ mode: "detach", activate: false })
-
   win.on('ready-to-show', () => {
     isWinReady = true;
   })
 
   win.webContents.on('dom-ready', () => {
-    // initOpenFileQueue = []
-    // initOpenFileQueue.push('C:/Users/jm/Desktop/test.apk');
     sendFileList(initOpenFileQueue)
-
-    // dialog.showMessageBoxSync({
-    //   type: 'question',
-    //   buttons: ['安装', '取消'],
-    //   defaultId: 0,
-    //   cancelId: 1,
-    //   title: 'apk安装器',
-    //   message: '可安装设备',
-    //   checkboxLabel: 'checkbox',
-    //   checkboxChecked: true
-    // })
-
+        // 打开开发者工具
+    win.webContents.openDevTools({ mode: "detach", activate: false })
   })
 
   ipcMain.on('open-dev-tool', (event, arg) => {
@@ -55,6 +41,17 @@ function createWindow() {
       } else {
         win.webContents.closeDevTools()
       }
+    }
+  })
+
+  ipcMain.on('open-adb-selector',(event,arg)=>{
+    var paths = dialog.showOpenDialogSync({ properties: ['openFile'] ,message:"选择adb安装路径（path-to-adb/platform-tools/adb）"})
+    if(paths && paths.length >0){
+      BrowserWindow.getAllWindows().forEach((win,index,array)=>{
+        if(!win.isDestroyed()){
+          win.webContents.send("open-adb-selector-ret", paths[0])
+        }
+      })
     }
   })
 }
@@ -80,16 +77,13 @@ app.on('activate', () => {
   }
 })
 
-// 您可以把应用程序其他的流程写在在此文件中
-// 代码 也可以拆分成几个文件，然后用 require 导入。
-
-// ========================================================================
+app.on("window-all-closed",() => {
+  app.quit()
+})
 
 //https://www.electronjs.org/docs/api/app#%E4%BA%8B%E4%BB%B6-open-url-macos
-
 // Attempt to bind file opening #2
 app.on('will-finish-launching', () => {
-
   if (process.platform == 'win32') {
     const argv = process.argv
     if (argv) {
@@ -103,19 +97,18 @@ app.on('will-finish-launching', () => {
     // Event fired When someone drags files onto the icon while your app is running
     // for macOs https://www.electronjs.org/docs/api/app#%E4%BA%8B%E4%BB%B6-open-file-macos
     app.on("open-file", (event, file) => {
-      if (!isWinReady) {
+      if (file.indexOf('.apk') >= 0) {
         initOpenFileQueue.push(file);
-      } else {
-        sendFile(file)
-      };
+      }
       event.preventDefault();
     });
   }
 });
 
-
 function sendFileList(fileList) {
-  BrowserWindow.getAllWindows().forEach(win => {
-    win.webContents.send("open-file-list", fileList)
-  })
+  if(fileList.length >= 0){
+    BrowserWindow.getAllWindows().forEach(win => {
+      win.webContents.send("open-file-list", fileList)
+    })
+  }
 }

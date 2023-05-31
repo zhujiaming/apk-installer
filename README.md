@@ -1,9 +1,8 @@
 ## 安装包下载
 
-windows: [ApkInstaller.exe](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.0.5/Apk.Installer.Setup.1.0.5.exe)
+windows: [ApkInstaller.exe](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.5.0-all/Apk.Installer.Setup.1.5.0.exe)
 
-
-macos: [ApkInstaller-1.5.0.dmg](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.5.0/Apk.Installer-1.5.0.dmg)
+macos: [ApkInstaller-1.5.0.dmg](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.5.0-all/Apk.Installer-1.5.0.dmg)
 
 ## Apk Installer
 

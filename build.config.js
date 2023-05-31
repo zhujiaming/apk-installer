@@ -80,7 +80,7 @@ const config = {
     "!.vscode/",
     "!.electron-vue",
     "!build/",
-    "!dist/web/",
+    "!dist/",
     "!src/",
     "!static/",
     "!test/",

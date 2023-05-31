@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build:win32": "electron-builder --config build.config.js --win",
+    "build:win32": "electron-builder --config build.config.win.js --win",
     "build:mac": "electron-builder --config build.config.js -m -c.mac.identity=null"
   },
   "author": "",

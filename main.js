@@ -1,6 +1,10 @@
 const { app, BrowserWindow, dialog, ipcMain } = require("electron");
 const path = require("path");
 
+for (const dependency of ['chrome', 'node', 'electron']) {
+  console.log(dependency + ":" + process.versions[dependency])
+}
+
 var isWinReady = false;
 var initOpenFileQueue = [];
 var title = "Apk安装器 v" + app.getVersion();

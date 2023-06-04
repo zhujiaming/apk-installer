@@ -9,7 +9,7 @@
     "build:win32": "electron-builder --config build.config.js --win",
     "build:mac": "electron-builder --config build.config.js -m -c.mac.identity=null"
   },
-  "author": "",
+  "author": "ah_zjm@163.com",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {

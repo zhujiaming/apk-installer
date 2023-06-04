@@ -10,7 +10,7 @@
     "build:mac": "electron-builder --config build.config.js -m -c.mac.identity=null"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "electron": "^10.0.0",

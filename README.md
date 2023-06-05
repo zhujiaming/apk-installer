@@ -8,11 +8,18 @@ macos: [ApkInstaller-1.5.0.dmg](https://github.com/zhujiaming/electron-apk-insta
 
   一款pc端使用的apk安装器，可以通过双击Apk直接将Apk安装到当前已连接Window/MacOs的Andorid手机设备上。
 
-  拆包即用，应用已关联apk的默认打开方式，双击apk文件即可直接选择设备安装。
+## 为什么使用它
 
-> 免去每次输入命令安装或者安装第三方应用关联一堆功能的烦恼。
+  1. 同步支持windows、macOs，功能无差异；
+  2. 拆包即用，无额外配置，简洁无额外功能；
+  3. 自动关联为Apk文件默认打开方式，双击apk直接启动安装。；
+  4. 支持多个设备同步一键安装；
+  5. 安装状态日志提示；
+
+## 效果图
 
 ![效果图](./snapshot/page.jpg)
 
-## 开发过程
-[《使用Electron开发一款Apk安装器应用》](https://www.jianshu.com/p/a32542277b83)
+## 另外
+
+欢迎在issues中提出问题，或功能建议，或加入一起探讨开发，欢迎丢个⭐。

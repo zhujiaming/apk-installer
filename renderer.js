@@ -13,7 +13,7 @@ let fileList = [];
 let deviceList = [];
 ipcRenderer.on("open-file-list", (event, args) => {
   console.log("open-file-list:", args);
-  args = ['C:/Users/zhujm/Downloads/11.apk']
+  // args = ['C:/Users/zhujm/Downloads/11.apk']
   if (!args || args.length == 0) {
     divInfo.innerHTML = "👉 请关联应用为apk默认打开方式，并双击apk文件";
     return;

@@ -1,12 +1,12 @@
 {
   "name": "apk-installer",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build:win32": "electron-builder --config build.config.win.js --win",
+    "build:win": "electron-builder --config build.config.win.js --win",
     "build:mac": "electron-builder --config build.config.js -m -c.mac.identity=null"
   },
   "author": "ah_zjm@163.com",

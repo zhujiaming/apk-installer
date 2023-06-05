@@ -13,7 +13,7 @@ function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow({
     width: 380,
-    height: 220,
+    height: 240,
     title,
     resizable: false,
     maximizable: false,
@@ -34,9 +34,9 @@ function createWindow() {
 
   win.webContents.on("dom-ready", () => {
     sendFileList(initOpenFileQueue);
-    // 打开开发者工具
-    // win.webContents.openDevTools({ mode: "detach", activate: false });
   });
+
+  // win.webContents.openDevTools({ mode: "detach", activate: false });
 
   ipcMain.on("open-dev-tool", (event, arg) => {
     console.log("get arg:", arg);
@@ -67,6 +67,7 @@ function createWindow() {
     var installPath = app.getAppPath();
     console.log("adbPath:", installPath);
     var adbPath = path.join(installPath, "..", "..", "Resources", "adb", "adb");
+    // adbPath = path.join(__dirname, "resource", "adb_win32", "adb")
     win.webContents.send("getLocalAdbPath-ret", adbPath);
   });
 }

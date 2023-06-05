@@ -8,6 +8,30 @@
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
 </head>
 <style>
+  .button {
+    display: inline-block;
+    padding: 5px 5px;
+    background-color: #2196F3;
+    color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .button:hover {
+    background-color: #1976D2;
+  }
+
+  .button:active {
+    background-color: #0D47A1;
+    box-shadow: none;
+  }
+
+  .button:focus {
+    outline: none;
+  }
+  
 </style>
 
 <body ondblclick="openDevTool()">
@@ -18,9 +42,9 @@
   <div id="div_ids" style="margin-top: 10px;">
   </div>
   <div style="margin-top: 10px;">
-    <button id="btn_refresh" type="button" onclick='refreshDevices()'>刷新设备</button>
-    <button id="btn_install" type="button" style="margin-left: 10px;">安装</button>
-    <button id="btn_set_adb" type="button" style="margin-left: 10px; visibility: hidden;">自定义adb路径</button>
+    <div id="btn_refresh" class="button" onclick='refreshDevices()'>刷新设备</div>
+    <div id="btn_install" class="button" style="margin-left: 10px;">安装</div>
+    <div id="btn_set_adb" class="button" style="margin-left: 10px; visibility: hidden;">自定义adb路径</div>
   </div>
   <br />
   <div id="div_info" style="margin-top: -10px;color:red;font-size: 12px"></div>

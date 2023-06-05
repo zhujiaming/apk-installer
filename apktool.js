@@ -9,20 +9,24 @@ async function listDevices() {
   const { error, stdout, stderr } = await adbRun("devices");
   if (error) {
     console.error("listDevices|error:", error);
-    throw e;
+    throw error;
   }
   if (stderr) {
     console.error("listDevices|stderr:", stderr);
-    throw e;
+    throw error;
   }
   let deviceArray = [];
+  let deviceStateArray = [];
   stdout.split("\n").forEach((line) => {
     if ((line = line.trim()) && line.indexOf("List of devices attached") < 0) {
-      deviceArray.push(line.split("	")[0]);
+      var deviceId = line.split("	")[0]
+      var info = line.split("	")[1]
+      deviceArray.push(deviceId);
+      deviceStateArray.push(info)
     }
   });
-  console.log("devices:", deviceArray);
-  return deviceArray;
+  console.log("devices:", deviceArray, deviceStateArray);
+  return [deviceArray, deviceStateArray];
 }
 
 /**
@@ -83,6 +87,34 @@ function installApk(deviceId, apkPath) {
 }
 
 /**
+ * 安装apk到一个或多个设备
+ * 超时时间默认50s
+ * @param {*} apkPath
+ * @param {*} deviceIds
+ */
+function installApkToDevices(apkPath, deviceIds, progress) {
+  return new Promise(async (resolve, reject) => {
+    var errors = []
+    for (deviceId of deviceIds) {
+      progress && progress([0, deviceId])
+      try {
+        await installApk(deviceId, apkPath)
+        progress && progress([1, deviceId])
+      } catch (e) {
+        console.error(e)
+        errors.push(e)
+        progress && progress([2, deviceId, e])
+      }
+    }
+    if (errors.length > 0) {
+      reject(errors)
+    } else {
+      resolve('success')
+    }
+  })
+}
+
+/**
  * 执行adb包装
  * @param {*} args
  * @returns
@@ -98,4 +130,4 @@ function adbRun(args) {
   return execPromisefy(args);
 }
 
-module.exports = { listDevices, installApk, checkAdbEnv };
+module.exports = { listDevices, installApk, installApkToDevices, checkAdbEnv };

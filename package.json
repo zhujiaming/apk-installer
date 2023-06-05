@@ -9,8 +9,8 @@
     "build:win32": "electron-builder --config build.config.win.js --win",
     "build:mac": "electron-builder --config build.config.js -m -c.mac.identity=null"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "ah_zjm@163.com",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "electron": "^10.0.0",

@@ -1,14 +1,14 @@
 ### 安装包下载
 
-windows: [ApkInstaller.exe](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.5.0-all/Apk.Installer.Setup.1.5.0.exe)
+windows: [Apk.Installer.Setup.1.6.0.exe](https://github.com/zhujiaming/apk-installer/releases/download/1.6.0/Apk.Installer.Setup.1.6.0.exe)
 
-macos: [ApkInstaller-1.5.0.dmg](https://github.com/zhujiaming/electron-apk-installer/releases/download/1.5.0-all/Apk.Installer-1.5.0.dmg)
+macos: [Apk.Installer-1.6.0.dmg](https://github.com/zhujiaming/apk-installer/releases/download/1.6.0/Apk.Installer-1.6.0.dmg)
 
 ### Apk Installer
 
   一款pc端使用的apk安装器，可以通过双击Apk直接将Apk安装到当前已连接Window/MacOs的Andorid手机设备上。
 
-### for
+### 支持
 
   1. 同步支持windows、macOs，功能无差异；
   2. 拆包即用，无额外配置，简洁无额外功能；

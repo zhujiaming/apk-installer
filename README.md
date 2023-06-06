@@ -11,9 +11,9 @@ macos: [Apk.Installer-1.6.0.dmg](https://github.com/zhujiaming/apk-installer/rel
 ### 支持
 
   1. 同步支持windows、macOs，功能无差异；
-  2. 拆包即用，无额外配置，简洁无额外功能；
+  2. 拆包即用，无额外配置（除安卓手机需要打开调试模式外），简洁无额外功能；[>>怎么打开手机调试模式](https://www.google.com/search?q=%E5%AE%89%E5%8D%93%E6%89%8B%E6%9C%BA%E6%80%8E%E4%B9%88%E6%89%93%E5%BC%80%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F)
   3. 自动关联为Apk文件默认打开方式，双击apk直接启动安装。；
-  4. 支持多个设备同步一键安装；
+  4. 支持多个设备同时一键安装；
   5. 安装状态日志提示；
 
 ### 效果图

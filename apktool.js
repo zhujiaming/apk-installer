@@ -17,16 +17,25 @@ async function listDevices() {
   }
   let deviceArray = [];
   let deviceStateArray = [];
+  let deviceNameArray = [];
   stdout.split("\n").forEach((line) => {
     if ((line = line.trim()) && line.indexOf("List of devices attached") < 0) {
-      var deviceId = line.split("	")[0]
-      var info = line.split("	")[1]
+      var deviceId = line.split("	")[0];
+      var info = line.split("	")[1];
       deviceArray.push(deviceId);
-      deviceStateArray.push(info)
+      deviceStateArray.push(info);
     }
   });
-  console.log("devices:", deviceArray, deviceStateArray);
-  return [deviceArray, deviceStateArray];
+  for (deviceId of deviceArray) {
+    try {
+      const deviceName = await getDeviceName(deviceId);
+      deviceNameArray.push(deviceName);
+    } catch (e) {
+      deviceNameArray.push("unknown");
+    }
+  }
+  console.log("devices info:", deviceArray, deviceStateArray, deviceNameArray);
+  return [deviceArray, deviceStateArray, deviceNameArray];
 }
 
 /**
@@ -94,24 +103,44 @@ function installApk(deviceId, apkPath) {
  */
 function installApkToDevices(apkPath, deviceIds, progress) {
   return new Promise(async (resolve, reject) => {
-    var errors = []
+    var errors = [];
     for (deviceId of deviceIds) {
-      progress && progress([0, deviceId])
+      progress && progress([0, deviceId]);
       try {
-        await installApk(deviceId, apkPath)
-        progress && progress([1, deviceId])
+        await installApk(deviceId, apkPath);
+        progress && progress([1, deviceId]);
       } catch (e) {
-        console.error(e)
-        errors.push(e)
-        progress && progress([2, deviceId, e])
+        console.error(e);
+        errors.push(e);
+        progress && progress([2, deviceId, e]);
       }
     }
     if (errors.length > 0) {
-      reject(errors)
+      reject(errors);
     } else {
-      resolve('success')
+      resolve("success");
     }
-  })
+  });
+}
+
+function getDeviceName(deivceId) {
+  return new Promise(async (r, j) => {
+    try {
+      const ret = await adbRun(
+        `-s "${deviceId}" shell getprop ro.product.model`
+      );
+      const stdout = ret["stdout"];
+      const stderr = ret["stderr"];
+      if (stdout) {
+        r(stdout);
+      } else {
+        j(stderr);
+      }
+    } catch (e) {
+      console.error("getDeviceName err", e);
+      j(e);
+    }
+  });
 }
 
 /**

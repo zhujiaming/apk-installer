@@ -1,5 +1,10 @@
 const electron = require("electron");
-const { listDevices, installApk, installApkToDevices, checkAdbEnv } = require("./apktool");
+const {
+  listDevices,
+  installApk,
+  installApkToDevices,
+  checkAdbEnv,
+} = require("./apktool");
 const fs = require("fs");
 const { error } = require("console");
 const ipcRenderer = electron.ipcRenderer;
@@ -88,19 +93,23 @@ function refreshDevices() {
   listDevices().then((datas) => {
     // let selectDeviceId = getSelectedDevicesId();
     // dlist = ["1231312312", '123131233', '41241241241']
-    var dlist = datas[0]
-    var dInfoList = datas[1]
+    var dlist = datas[0];
+    var dInfoList = datas[1];
+    var dNameList = datas[2];
     if (dlist) {
       deviceList = dlist;
       let divIds = document.getElementById("div_ids");
       divIds.innerHTML = "";
       // let checked = false;
       deviceList.forEach((deviceId, index) => {
-        var deviceInfo = dInfoList[index] === 'device' ? '' : `[${dInfoList[index]}]`
-        var isOffline = dInfoList[index] === 'offline'
-        var disabled = isOffline ? 'disabled' : ''
+        var deviceName = dNameList[index];
+        var deviceInfo =
+          dInfoList[index] === "device" ? "" : `[${dInfoList[index]}]`;
+        var isOffline = dInfoList[index] === "offline";
+        var disabled = isOffline ? "disabled" : "";
+        var content = `&nbsp;${deviceId}&nbsp;${deviceName}&nbsp;&nbsp;&nbsp;${deviceInfo}`;
         let lable = document.createElement("label");
-        lable.innerHTML = `<input name="deviceId" id="${deviceId}" type="checkbox" value="${deviceId}" ${disabled}/><label for="deviceId" onclick = "document.getElementById('${deviceId}').checked = !document.getElementById('${deviceId}').checked;">&nbsp;${deviceId}&nbsp;&nbsp;&nbsp;${deviceInfo}</label>`;
+        lable.innerHTML = `<input name="deviceId" id="${deviceId}" type="checkbox" value="${deviceId}" ${disabled}/><label for="deviceId" style = "font-size:12px" onclick = "document.getElementById('${deviceId}').checked = !document.getElementById('${deviceId}').checked;">${content}</label>`;
         // if (lable.checked == true) {
         //   checked = true;
         // }
@@ -135,25 +144,32 @@ function onInstallClick() {
       return;
     }
     // divInfo.innerHTML = `${selectDid}:<br>正在安装，请稍等...（请确认手机端是否有安装提示）`;
-    btnInstall.style['pointer-events'] = "none";
-    btnInstall.innerText = "安装中"
+    btnInstall.style["pointer-events"] = "none";
+    btnInstall.innerText = "安装中";
     installApkToDevices(fileList[0], selectDids, (did) => {
       if (did[0] == 0) {
-        divInfo.innerText = `👉 ${did[1]} 正在安装...（请确认手机端是否有安装提示）\n` + divInfo.innerText
+        divInfo.innerText =
+          `👉 ${did[1]} 正在安装...（请确认手机端是否有安装提示）\n` +
+          divInfo.innerText;
       } else if (did[0] == 1) {
-        divInfo.innerText = `👉 ${did[1]} 安装完成\n` + divInfo.innerText
+        divInfo.innerText = `👉 ${did[1]} 安装完成\n` + divInfo.innerText;
       } else if (did[0] == 2) {
-        divInfo.innerText = `👉 ${did[1]} 安装失败：${did[2]}\n` + divInfo.innerText
+        divInfo.innerText =
+          `👉 ${did[1]} 安装失败：${did[2]}\n` + divInfo.innerText;
       }
-    }).then((res) => {
-      divInfo.innerText = `👉 全部安装完成\n` + divInfo.innerText
-    }).catch((e) => {
-      divInfo.innerText = `👉 全部安装完成，失败${e.length}个\n` + divInfo.innerText
-      console.error('onInstallClick error', e)
-    }).finally(() => {
-      btnInstall.style['pointer-events'] = "auto";
-      btnInstall.innerText = "安装"
-    });
+    })
+      .then((res) => {
+        divInfo.innerText = `👉 全部安装完成\n` + divInfo.innerText;
+      })
+      .catch((e) => {
+        divInfo.innerText =
+          `👉 全部安装完成，失败${e.length}个\n` + divInfo.innerText;
+        console.error("onInstallClick error", e);
+      })
+      .finally(() => {
+        btnInstall.style["pointer-events"] = "auto";
+        btnInstall.innerText = "安装";
+      });
   } else {
     divInfo.innerHTML = "请选择设备！";
   }
